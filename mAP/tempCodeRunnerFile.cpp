@@ -1,0 +1,1 @@
+recoginfo_array

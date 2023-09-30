@@ -2,14 +2,14 @@ import os
 import glob
 
 
-GT_folder_path = "data/GT"
-prediction_folder_path = "data/prediction"
+GT_folder_path = "data/GT_test"
+prediction_folder_path = "data/prediction_test"
 
 # 文件路径转为文件名函数
 
 # 定义一个函数来读取文件并存储数据与文件名
 
-def read_and_store_data(file_path):
+def read_yolo_data(file_path):
     data = []
     file_name = os.path.basename(file_path)  # 获取文件名
     with open(file_path, 'r') as file:
@@ -21,7 +21,7 @@ def read_and_store_data(file_path):
                 values = [float(x) for x in parts[1:]]
                 data.append((label, values))
     
-    return file_name, data
+    return data
 
 
 
@@ -36,7 +36,6 @@ if __name__ == '__main__':
     matches = []
     GT_unmatched = []
     Prediction_unmatched = []
-
 
     for i, GT_file_path in enumerate(GT_files):
         GT_file_name = os.path.basename(GT_file_path)
@@ -62,8 +61,20 @@ if __name__ == '__main__':
     print("Prediction多余数量的为: ")
     print(len(Prediction_unmatched))
 
-    for i in Prediction_unmatched:
-        print(i)
+
+    for match_file, i, j in matches:
+        GT_data_path = GT_folder_path + "/" + match_file
+        prediction_data_path = prediction_folder_path + "/" + match_file
+        GT_data = read_yolo_data(GT_data_path)
+        print("gt:")
+        print(GT_data)
+        prediction_data = read_yolo_data(prediction_data_path)
+        print("prediction_data:")
+        print(prediction_data)
+
+
+    # for i in Prediction_unmatched:
+    #     print(i)
 
 
     # i = 0

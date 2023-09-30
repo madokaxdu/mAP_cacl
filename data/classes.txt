@@ -1,0 +1,5 @@
+data_wire
+shoes
+trashcan
+soft_object
+fanbase
